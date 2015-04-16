@@ -1,9 +1,9 @@
-require_relative 'char_map'
+
 
 class Parse
 	attr_reader :message, :map, :manipulation
 	def initialize(message)
-		@map = CharMap.new
+		@map = ("a".."z").to_a + ("0".."9").to_a + [" ", ".", ","]
 		@message = message
 		@manipulation = []
 
@@ -12,14 +12,14 @@ class Parse
 	def message
 		# file     = File.open(ARGV[0])
 		# contents = file.read.chomp
-		contents = "testrubytestruby"
+		contents = "4v7g2.ql4v7g2.ql"
 		message = contents.downcase
 	end
 
 	def char_indicies
 		message.chars.each_slice(4).each do |slice|
 			slice.map do |letter|
-				manipulation.push(map.char_map.index(letter))
+				manipulation.push(map.index(letter))
 			end
 		end
 
