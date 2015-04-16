@@ -3,32 +3,34 @@ require_relative 'rotor'
 
 class Decryptor
 	attr_reader :message,
+							:char_map,
 							:parse,
 							:offset,
 							:key,
 							:rotor,
-							:char_map,
-							:a,
-							:b,
-							:c,
-							:d
+							:a, 				#rotation value char a from RotorClass
+							:b, 				#rotation value char a from RotorClass
+							:c, 				#rotation value char a from RotorClass
+							:d 					#rotation value char a from RotorClass
 
 
 	def initialize(message)
 		@message = message
 		@char_map = ("a".."z").to_a + ("0".."9").to_a + [" ", ".", ","]
-		@decrypted_message = []
 		@parse = Parse.new(message)
 		@offset = Offset.new
 		@key = Key.new
+
 		@a = Rotor.new.a_rotation
 		@b = Rotor.new.b_rotation
 		@c = Rotor.new.c_rotation
 		@d = Rotor.new.d_rotation
+
+		@decrypted_message = []
 	end
 
 	def decrypt_message
-		i     = 0
+		i  = 0
 		count = (@parse.message.length) / 4
 		count.times do
 

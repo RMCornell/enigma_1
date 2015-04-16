@@ -1,12 +1,9 @@
-
-
 class Parse
 	attr_reader :message, :map, :manipulation
 	def initialize(message)
 		@map = ("a".."z").to_a + ("0".."9").to_a + [" ", ".", ","]
 		@message = message
 		@manipulation = []
-
 	end
 
 	def message
@@ -26,8 +23,6 @@ class Parse
 		return manipulation
 	end
 end
-
-
 
 if ARGV[0].nil?
 	contents = "rubytest"

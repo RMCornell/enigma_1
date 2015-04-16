@@ -1,1 +1,1 @@
-This is a test to see how much I can actually encrypt with this machine and if there is a limit on the number of characters it will accept.
+this is testing my encryption engine.  If this works then this should be the same thing in the decrypted file once my decryption engine decrypts this encrypted message.  P.S.  Snow sucks.

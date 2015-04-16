@@ -4,26 +4,28 @@ require_relative 'rotor'
 class Encryptor
 	attr_reader :message,
 							:parse,
-							:rotor,
-							:key,
-							:offset,
 							:char_map,
-							:a,
-							:b,
-							:c,
-							:d
+							:key,					#key value for CLI output
+							:offset,			#date value for CLI output
+							:rotor,
+							:a, 					#rotation value char a from RotorClass
+							:b,						#rotation value char b from RotorClass
+							:c,						#rotation value char c from RotorClass
+							:d						#rotation value char d from RotorClass
 
-	def initialize(message = "u")
+	def initialize(message)
+		@message = message
+		@parse = Parse.new(message)
 		@char_map = ("a".."z").to_a + ("0".."9").to_a + [" ", ".", ","]
-		@encrypted_message = []
 		@key = Key.new
 		@offset = Offset.new
-		@parse = Parse.new(message)
 
 		@a = Rotor.new.a_rotation
 		@b = Rotor.new.b_rotation
 		@c = Rotor.new.c_rotation
 		@d = Rotor.new.d_rotation
+
+		@encrypted_message = []
 	end
 
 	def encrypt_message
@@ -52,7 +54,7 @@ class Encryptor
 		i = i + 1
 		end
 
-		puts "Created 'encrypted.txt with key of #{key.key} and date of #{offset.date}"
+		puts "Created 'encrypted.txt' with key of #{key.key} and date of #{offset.date}"
 		encrypted_file = File.open(ARGV[1], "w")
 		encrypted_file << @encrypted_message.join("")
 		encrypted_file.close
