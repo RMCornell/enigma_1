@@ -10,9 +10,9 @@ class Parse
 	end
 
 	def message
-		# file     = File.open(ARGV[0])
-		# contents = file.read.chomp
-		contents = "4v7g2.ql4v7g2.ql"
+		file     = File.open(ARGV[0])
+		contents = file.read.chomp
+		# contents = "ruby"
 		message = contents.downcase
 	end
 
@@ -27,11 +27,10 @@ class Parse
 	end
 end
 
-# if ARGV[0].nil?
-# 	contents = "rubytest"
-# else
-# 	contents = File.open(ARGV[0], "r")
-# end
-#
-# parse = Parse.new(contents)
-# puts parse.char_indicies.join("")
+
+
+if ARGV[0].nil?
+	contents = "rubytest"
+else
+	contents = File.open(ARGV[0], "r")
+end

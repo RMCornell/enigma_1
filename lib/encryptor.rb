@@ -2,12 +2,22 @@ require_relative 'parse'
 require_relative 'rotor'
 
 class Encryptor
-	attr_reader :message, :parse, :rotor, :char_map
-	attr_accessor :a, :b, :c, :d
+	attr_reader :message,
+							:parse,
+							:rotor,
+							:key,
+							:offset,
+							:char_map,
+							:a,
+							:b,
+							:c,
+							:d
 
 	def initialize(message = "u")
 		@char_map = ("a".."z").to_a + ("0".."9").to_a + [" ", ".", ","]
 		@encrypted_message = []
+		@key = Key.new
+		@offset = Offset.new
 		@parse = Parse.new(message)
 
 		@a = Rotor.new.a_rotation
@@ -42,6 +52,10 @@ class Encryptor
 		i = i + 1
 		end
 
+		puts "Created 'encrypted.txt with key of #{key.key} and date of #{offset.date}"
+		encrypted_file = File.open(ARGV[1], "w")
+		encrypted_file << @encrypted_message.join("")
+		encrypted_file.close
 	end
 end
 

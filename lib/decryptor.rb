@@ -2,14 +2,25 @@ require_relative 'parse'
 require_relative 'rotor'
 
 class Decryptor
-	attr_reader :message, :parse, :rotor, :char_map, :rev_map
-	attr_accessor :a, :b, :c, :d
+	attr_reader :message,
+							:parse,
+							:offset,
+							:key,
+							:rotor,
+							:char_map,
+							:a,
+							:b,
+							:c,
+							:d
 
-	def initialize(message = "u")
+
+	def initialize(message)
+		@message = message
 		@char_map = ("a".."z").to_a + ("0".."9").to_a + [" ", ".", ","]
 		@decrypted_message = []
 		@parse = Parse.new(message)
-
+		@offset = Offset.new
+		@key = Key.new
 		@a = Rotor.new.a_rotation
 		@b = Rotor.new.b_rotation
 		@c = Rotor.new.c_rotation
@@ -42,9 +53,13 @@ class Decryptor
 			i = i + 1
 		end
 
-		return @decrypted_message.join("")
+		puts "Created 'decrypted.txt with key of #{key.key} and date of #{@offset.date}"
+		decrypted_file = File.open(ARGV[1], "w")
+		decrypted_file << @decrypted_message.join("")
+		decrypted_file.close
 	end
 end
 
 decryptor = Decryptor.new("")
 puts decryptor.decrypt_message
+
